@@ -44,7 +44,7 @@
             // 
             this.source_comboBox.FormattingEnabled = true;
             this.source_comboBox.Items.AddRange(new object[] {
-            "00001 Toyota Corolla Rally Car",
+            "00001 I4, 8000 RPM, DOHC, modern",
             "00002 Peugeot 206 Rally Car",
             "00003 Ford Focus Rally Car",
             "00004 Subaru Impreza WRC 97 + Impreza WRC \'99 + Suzuki Cultus Pike\'s Peak",

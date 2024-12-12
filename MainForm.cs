@@ -69,8 +69,8 @@ namespace GT2EngineSoundEd
                         string folderName = PromptForFolderName();
                         if (!string.IsNullOrEmpty(folderName))
                         {
-                            string newFolderPath = Path.Combine(selectedPath, folderName);
-                            Directory.CreateDirectory(newFolderPath);
+                            mSavePath = Path.Combine(selectedPath, folderName);
+                            Directory.CreateDirectory(mSavePath);
                         }
                         else
                         {
@@ -83,7 +83,12 @@ namespace GT2EngineSoundEd
                     }
                 }
             }
-            
+
+            if (!executeCancelled)
+            {
+                ExecuteAllTasks();
+            }
+
         }
 
         private void removeTask_ButtonClick(object sender, EventArgs e)
@@ -99,7 +104,7 @@ namespace GT2EngineSoundEd
                 errorIndicator_Label.ForeColor = Color.Red;
                 errorIndicator_Label.Text = ex.Message.Replace(Environment.NewLine, " ");
             }
-            
+
             UpdateTasksGraphic();
         }
 
@@ -113,6 +118,43 @@ namespace GT2EngineSoundEd
             }
 
             tasksQueue_TextBox.Text = tasksList;
+        }
+
+        private void ExecuteAllTasks()
+        {
+            foreach (KeyValuePair<string, string> task in mTasksList)
+            {
+                if ((task.Key.Trim().Length != 0) && (task.Value.Trim().Length != 0))
+                {
+                    // Which file from extract path?
+                    Dictionary<string, string> fileNamePairs = new Dictionary<string, string>();
+
+                    // Extract filenames, new filenames
+                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + ".es", ReturnSoundFileNameFromListEntry(task.Key) + ".es");
+                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_n0.es", ReturnSoundFileNameFromListEntry(task.Key) + "_n0.es");
+                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_n1.es", ReturnSoundFileNameFromListEntry(task.Key) + "_n1.es");
+                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_n2.es", ReturnSoundFileNameFromListEntry(task.Key) + "_n2.es");
+                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_n3.es", ReturnSoundFileNameFromListEntry(task.Key) + "_n3.es");
+                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_t0.es", ReturnSoundFileNameFromListEntry(task.Key) + "_t0.es");
+                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_t1.es", ReturnSoundFileNameFromListEntry(task.Key) + "_t1.es");
+                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_t2.es", ReturnSoundFileNameFromListEntry(task.Key) + "_t2.es");
+                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_t3.es", ReturnSoundFileNameFromListEntry(task.Key) + "_t3.es");
+
+                    foreach (KeyValuePair<string, string> fileNamePair in fileNamePairs)
+                    {
+                        // Save it to save path
+                        DuplicateFile(mExtractPath + "/" + fileNamePair.Key, mSavePath, fileNamePair.Value);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Error! Failed to perform task " + task.Value + " -> " + task.Key);
+                }
+            }
+
+            errorIndicator_Label.ForeColor = Color.Green;
+            errorIndicator_Label.Text = "Operation complete";
+
         }
 
         public static string PromptForFolderName()
@@ -130,6 +172,39 @@ namespace GT2EngineSoundEd
                 prompt.Controls.Add(confirmation);
                 prompt.AcceptButton = confirmation;
                 return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : string.Empty;
+            }
+        }
+
+        public string ReturnSoundFileNameFromListEntry(string listEntry)
+        {
+            string fileName = string.Empty;
+
+            string fileId = listEntry.Split(' ')[0];
+
+            return GetEntryStartingWith(FileNames.mSoundFileNames, fileId);
+        }
+
+        public static string GetEntryStartingWith(List<string> list, string keyString)
+        {
+            return list.FirstOrDefault(entry => entry.StartsWith(keyString));
+        }
+
+        public static void DuplicateFile(string sourceFilePath, string destinationDirectory, string newFileName)
+        {
+            if (!Directory.Exists(destinationDirectory))
+            {
+                Directory.CreateDirectory(destinationDirectory);
+            }
+
+            string destinationFilePath = Path.Combine(destinationDirectory, newFileName);
+
+            try
+            {
+                File.Copy(sourceFilePath, destinationFilePath, overwrite: true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
     }
