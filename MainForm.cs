@@ -41,6 +41,8 @@ namespace GT2EngineSoundEd
 
         private void executeTask_ButtonClick(object sender, EventArgs e)
         {
+            bool executeCancelled = false;
+
             using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
             {
                 folderDialog.Description = "Select your /engine directory";
@@ -49,24 +51,39 @@ namespace GT2EngineSoundEd
                 {
                     mExtractPath = folderDialog.SelectedPath;
                 }
+                else
+                {
+                    executeCancelled = true;
+                }
             }
 
-            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+            if (!executeCancelled)
             {
-                folderDialog.Description = "Select the directory to create a new folder in:";
-                DialogResult result = folderDialog.ShowDialog();
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
+                using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
                 {
-                    string selectedPath = folderDialog.SelectedPath;
-                    string folderName = PromptForFolderName();
-                    if (!string.IsNullOrEmpty(folderName))
+                    folderDialog.Description = "Select the directory to create a new folder in:";
+                    DialogResult result = folderDialog.ShowDialog();
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
                     {
-                        string newFolderPath = Path.Combine(selectedPath, folderName);
-                        Directory.CreateDirectory(newFolderPath);
-                        //MessageBox.Show($"New folder created: {newFolderPath}", "Folder Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        string selectedPath = folderDialog.SelectedPath;
+                        string folderName = PromptForFolderName();
+                        if (!string.IsNullOrEmpty(folderName))
+                        {
+                            string newFolderPath = Path.Combine(selectedPath, folderName);
+                            Directory.CreateDirectory(newFolderPath);
+                        }
+                        else
+                        {
+                            executeCancelled = true;
+                        }
+                    }
+                    else
+                    {
+                        executeCancelled = true;
                     }
                 }
             }
+            
         }
 
         private void removeTask_ButtonClick(object sender, EventArgs e)
