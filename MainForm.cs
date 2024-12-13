@@ -180,9 +180,9 @@ namespace GT2EngineSoundEd
         {
             string fileName = string.Empty;
 
-            string fileId = listEntry.Split(' ')[0];
+            string fileId = listEntry.Split('(')[1].Split(')')[0];
 
-            return GetEntryStartingWith(FileNames.mSoundFileNames, fileId);
+            return fileId;
         }
 
         public static string GetEntryStartingWith(List<string> list, string keyString)
