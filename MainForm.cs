@@ -20,6 +20,7 @@ namespace GT2EngineSoundEd
         public MainForm()
         {
             InitializeComponent();
+            LoadFormContents();
         }
 
         private void addTask_ButtonClick(object sender, EventArgs e)
@@ -206,6 +207,52 @@ namespace GT2EngineSoundEd
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
+        }
+
+        public string GenerateSoundFileName(SoundFile soundFile)
+        {
+            string fileName = string.Empty;
+
+            string fileId = soundFile.SoundId.ToString().PadLeft(5, '0');
+
+            string exhaustType = soundFile.ExhaustType.ToString().Contains("Stock") ? string.Empty : "_" + soundFile.ExhaustType.ToString();
+
+            fileName = fileId + exhaustType + ".es";
+
+            return fileName;
+        }
+
+        public void LoadFormContents()
+        {
+            List<string> sourceItems = new List<string>();
+
+            foreach (KeyValuePair<int, string> carName in FileNames.mCarNames)
+            {
+                string thisCarName = carName.Value;
+
+                // Want to find all matching SoundFiles and their ExhaustType in mSoundsList
+                foreach (SoundFile soundFile in FileNames.mSoundsList)
+                {
+                    if (soundFile.SoundId == carName.Key)
+                    {
+                        thisCarName = carName.Value + ", " + soundFile.ExhaustType.ToString();
+                        sourceItems.Add(thisCarName);
+                    }
+                }
+            }
+
+            List<string> soundDescriptions = new List<string>();
+
+            foreach (SoundFile soundFile in FileNames.mSoundsList)
+            {
+                soundDescriptions.Add(soundFile.Description + " (" + GenerateSoundFileName(soundFile) + ")");
+            }
+
+            source_comboBox.Items.Clear();
+            source_comboBox.Items.AddRange(soundDescriptions.ToArray());
+
+            dest_comboBox.Items.Clear();
+            dest_comboBox.Items.AddRange(sourceItems.ToArray());
         }
     }
 }

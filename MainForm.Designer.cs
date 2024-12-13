@@ -46,15 +46,7 @@ namespace GT2EngineSoundEd
             // source_comboBox
             // 
             this.source_comboBox.FormattingEnabled = true;
-
-            List<string> descriptions = new List<string>();
-
-            foreach (SoundFile soundFile in FileNames.mSoundsList)
-            {
-                descriptions.Add(soundFile.SoundId.ToString() + soundFile.ExhaustType + ", " + soundFile.Description);
-            }
-
-            this.source_comboBox.Items.AddRange(descriptions.ToArray());
+            this.source_comboBox.Items.AddRange(new object[] { "Select Engine Sound" } );
             this.source_comboBox.Location = new System.Drawing.Point(24, 24);
             this.source_comboBox.Name = "source_comboBox";
             this.source_comboBox.Size = new System.Drawing.Size(723, 21);
@@ -63,7 +55,7 @@ namespace GT2EngineSoundEd
             // dest_comboBox
             // 
             this.dest_comboBox.FormattingEnabled = true;
-            this.dest_comboBox.Items.AddRange(FileNames.mCarNames.Values.ToArray());
+            this.dest_comboBox.Items.AddRange(new object[] { "Select Destination Car(s)" });
             this.dest_comboBox.Location = new System.Drawing.Point(24, 84);
             this.dest_comboBox.Name = "dest_comboBox";
             this.dest_comboBox.Size = new System.Drawing.Size(723, 21);
