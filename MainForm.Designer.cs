@@ -46,7 +46,8 @@ namespace GT2EngineSoundEd
             // source_comboBox
             // 
             this.source_comboBox.FormattingEnabled = true;
-            this.source_comboBox.Items.AddRange(new object[] { "Select Engine Sound" } );
+            this.source_comboBox.Items.AddRange(new object[] {
+            "Select Engine Sound"});
             this.source_comboBox.Location = new System.Drawing.Point(24, 24);
             this.source_comboBox.Name = "source_comboBox";
             this.source_comboBox.Size = new System.Drawing.Size(723, 21);
@@ -55,7 +56,8 @@ namespace GT2EngineSoundEd
             // dest_comboBox
             // 
             this.dest_comboBox.FormattingEnabled = true;
-            this.dest_comboBox.Items.AddRange(new object[] { "Select Destination Car(s)" });
+            this.dest_comboBox.Items.AddRange(new object[] {
+            "Select Destination Car(s)"});
             this.dest_comboBox.Location = new System.Drawing.Point(24, 84);
             this.dest_comboBox.Name = "dest_comboBox";
             this.dest_comboBox.Size = new System.Drawing.Size(723, 21);
@@ -73,11 +75,11 @@ namespace GT2EngineSoundEd
             // dest_Label
             // 
             this.dest_Label.AutoSize = true;
-            this.dest_Label.Location = new System.Drawing.Point(351, 68);
+            this.dest_Label.Location = new System.Drawing.Point(360, 68);
             this.dest_Label.Name = "dest_Label";
-            this.dest_Label.Size = new System.Drawing.Size(90, 13);
+            this.dest_Label.Size = new System.Drawing.Size(79, 13);
             this.dest_Label.TabIndex = 3;
-            this.dest_Label.Text = "Destination Car(s)";
+            this.dest_Label.Text = "Destination Car";
             // 
             // addTask_Button
             // 
