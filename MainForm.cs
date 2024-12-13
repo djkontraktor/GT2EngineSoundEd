@@ -235,7 +235,7 @@ namespace GT2EngineSoundEd
                 {
                     if (soundFile.SoundId == carName.Key)
                     {
-                        thisCarName = carName.Value + ", " + soundFile.ExhaustType.ToString();
+                        thisCarName = carName.Value + ", " + soundFile.ExhaustType.ToString() + " (" + GenerateSoundFileName(soundFile) + ")";
                         sourceItems.Add(thisCarName);
                     }
                 }
