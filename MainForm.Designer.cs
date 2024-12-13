@@ -75,7 +75,7 @@ namespace GT2EngineSoundEd
             // dest_Label
             // 
             this.dest_Label.AutoSize = true;
-            this.dest_Label.Location = new System.Drawing.Point(360, 68);
+            this.dest_Label.Location = new System.Drawing.Point(355, 68);
             this.dest_Label.Name = "dest_Label";
             this.dest_Label.Size = new System.Drawing.Size(79, 13);
             this.dest_Label.TabIndex = 3;
