@@ -21,6 +21,7 @@ namespace GT2EngineSoundEd
         {
             InitializeComponent();
             LoadFormContents();
+            ResizeAllControls();
         }
 
         private void addTask_ButtonClick(object sender, EventArgs e)
@@ -214,6 +215,11 @@ namespace GT2EngineSoundEd
         }
 
         private void Resize_MainForm(object sender, EventArgs e)
+        {
+            ResizeAllControls();
+        }
+
+        private void ResizeAllControls()
         {
             executeTask_Button.Location = new System.Drawing.Point(this.Size.Width - 100, this.Size.Height - 80);
             addTask_Button.Location = new System.Drawing.Point(this.Size.Width - 180, this.Size.Height - 80);
