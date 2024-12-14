@@ -65,25 +65,29 @@ namespace GT2EngineSoundEd
             // 
             // source_Label
             // 
+            this.source_Label.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.source_Label.AutoSize = true;
-            this.source_Label.Location = new System.Drawing.Point(340, 8);
+            this.source_Label.Location = new System.Drawing.Point(345, 8);
             this.source_Label.Name = "source_Label";
             this.source_Label.Size = new System.Drawing.Size(111, 13);
             this.source_Label.TabIndex = 2;
             this.source_Label.Text = "Source Engine Sound";
+            this.source_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dest_Label
             // 
+            this.dest_Label.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dest_Label.AutoSize = true;
-            this.dest_Label.Location = new System.Drawing.Point(355, 68);
+            this.dest_Label.Location = new System.Drawing.Point(359, 67);
             this.dest_Label.Name = "dest_Label";
             this.dest_Label.Size = new System.Drawing.Size(79, 13);
             this.dest_Label.TabIndex = 3;
             this.dest_Label.Text = "Destination Car";
+            this.dest_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // addTask_Button
             // 
-            this.addTask_Button.Location = new System.Drawing.Point(591, 281);
+            this.addTask_Button.Location = new System.Drawing.Point(598, 341);
             this.addTask_Button.Name = "addTask_Button";
             this.addTask_Button.Size = new System.Drawing.Size(75, 23);
             this.addTask_Button.TabIndex = 4;
@@ -93,7 +97,7 @@ namespace GT2EngineSoundEd
             // 
             // executeTask_Button
             // 
-            this.executeTask_Button.Location = new System.Drawing.Point(672, 281);
+            this.executeTask_Button.Location = new System.Drawing.Point(679, 341);
             this.executeTask_Button.Name = "executeTask_Button";
             this.executeTask_Button.Size = new System.Drawing.Size(75, 23);
             this.executeTask_Button.TabIndex = 5;
@@ -103,7 +107,7 @@ namespace GT2EngineSoundEd
             // 
             // removeTask_Button
             // 
-            this.removeTask_Button.Location = new System.Drawing.Point(495, 281);
+            this.removeTask_Button.Location = new System.Drawing.Point(502, 341);
             this.removeTask_Button.Name = "removeTask_Button";
             this.removeTask_Button.Size = new System.Drawing.Size(90, 23);
             this.removeTask_Button.TabIndex = 6;
@@ -116,23 +120,25 @@ namespace GT2EngineSoundEd
             this.tasksQueue_TextBox.Location = new System.Drawing.Point(24, 131);
             this.tasksQueue_TextBox.Multiline = true;
             this.tasksQueue_TextBox.Name = "tasksQueue_TextBox";
-            this.tasksQueue_TextBox.Size = new System.Drawing.Size(723, 144);
+            this.tasksQueue_TextBox.Size = new System.Drawing.Size(723, 204);
             this.tasksQueue_TextBox.TabIndex = 7;
             this.tasksQueue_TextBox.WordWrap = false;
             // 
             // tasksQueue_Label
             // 
+            this.tasksQueue_Label.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tasksQueue_Label.AutoSize = true;
-            this.tasksQueue_Label.Location = new System.Drawing.Point(360, 115);
+            this.tasksQueue_Label.Location = new System.Drawing.Point(365, 115);
             this.tasksQueue_Label.Name = "tasksQueue_Label";
             this.tasksQueue_Label.Size = new System.Drawing.Size(71, 13);
             this.tasksQueue_Label.TabIndex = 8;
             this.tasksQueue_Label.Text = "Tasks Queue";
+            this.tasksQueue_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // errorIndicator_Label
             // 
             this.errorIndicator_Label.AutoSize = true;
-            this.errorIndicator_Label.Location = new System.Drawing.Point(30, 291);
+            this.errorIndicator_Label.Location = new System.Drawing.Point(37, 351);
             this.errorIndicator_Label.Name = "errorIndicator_Label";
             this.errorIndicator_Label.Size = new System.Drawing.Size(38, 13);
             this.errorIndicator_Label.TabIndex = 9;
@@ -142,7 +148,7 @@ namespace GT2EngineSoundEd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 316);
+            this.ClientSize = new System.Drawing.Size(771, 373);
             this.Controls.Add(this.errorIndicator_Label);
             this.Controls.Add(this.tasksQueue_Label);
             this.Controls.Add(this.tasksQueue_TextBox);
@@ -153,8 +159,10 @@ namespace GT2EngineSoundEd
             this.Controls.Add(this.source_Label);
             this.Controls.Add(this.dest_comboBox);
             this.Controls.Add(this.source_comboBox);
+            this.MinimumSize = new System.Drawing.Size(512, 412);
             this.Name = "MainForm";
             this.Text = "GT2 Engine Sound Editor v0.1";
+            this.Resize += new System.EventHandler(this.Resize_MainForm);
             this.ResumeLayout(false);
             this.PerformLayout();
 

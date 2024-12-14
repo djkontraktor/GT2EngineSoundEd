@@ -46,7 +46,7 @@ namespace GT2EngineSoundEd
 
             using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
             {
-                folderDialog.Description = "Select your /engine directory";
+                folderDialog.Description = "Select your GT2 extracted /engine directory:";
                 DialogResult result = folderDialog.ShowDialog();
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
                 {
@@ -62,21 +62,11 @@ namespace GT2EngineSoundEd
             {
                 using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
                 {
-                    folderDialog.Description = "Select the directory to create a new folder in:";
+                    folderDialog.Description = "Select the directory to save output to:";
                     DialogResult result = folderDialog.ShowDialog();
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
                     {
-                        string selectedPath = folderDialog.SelectedPath;
-                        string folderName = PromptForFolderName();
-                        if (!string.IsNullOrEmpty(folderName))
-                        {
-                            mSavePath = Path.Combine(selectedPath, folderName);
-                            Directory.CreateDirectory(mSavePath);
-                        }
-                        else
-                        {
-                            executeCancelled = true;
-                        }
+                        mSavePath = folderDialog.SelectedPath;
                     }
                     else
                     {
@@ -128,24 +118,11 @@ namespace GT2EngineSoundEd
                 if ((task.Key.Trim().Length != 0) && (task.Value.Trim().Length != 0))
                 {
                     // Which file from extract path?
-                    Dictionary<string, string> fileNamePairs = new Dictionary<string, string>();
+                    string sourceFileName = ReturnSoundFileNameFromListEntry(task.Value);
+                    string destFileName = ReturnSoundFileNameFromListEntry(task.Key);
 
-                    // Extract filenames, new filenames
-                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + ".es", ReturnSoundFileNameFromListEntry(task.Key) + ".es");
-                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_n0.es", ReturnSoundFileNameFromListEntry(task.Key) + "_n0.es");
-                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_n1.es", ReturnSoundFileNameFromListEntry(task.Key) + "_n1.es");
-                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_n2.es", ReturnSoundFileNameFromListEntry(task.Key) + "_n2.es");
-                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_n3.es", ReturnSoundFileNameFromListEntry(task.Key) + "_n3.es");
-                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_t0.es", ReturnSoundFileNameFromListEntry(task.Key) + "_t0.es");
-                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_t1.es", ReturnSoundFileNameFromListEntry(task.Key) + "_t1.es");
-                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_t2.es", ReturnSoundFileNameFromListEntry(task.Key) + "_t2.es");
-                    fileNamePairs.Add(ReturnSoundFileNameFromListEntry(task.Value) + "_t3.es", ReturnSoundFileNameFromListEntry(task.Key) + "_t3.es");
-
-                    foreach (KeyValuePair<string, string> fileNamePair in fileNamePairs)
-                    {
-                        // Save it to save path
-                        DuplicateFile(mExtractPath + "/" + fileNamePair.Key, mSavePath, fileNamePair.Value);
-                    }
+                    // Save it to save path
+                    DuplicateFile(mExtractPath + "/" + sourceFileName, mSavePath, destFileName);
                 }
                 else
                 {
@@ -155,25 +132,6 @@ namespace GT2EngineSoundEd
 
             errorIndicator_Label.ForeColor = Color.Green;
             errorIndicator_Label.Text = "Operation complete";
-
-        }
-
-        public static string PromptForFolderName()
-        {
-            using (Form prompt = new Form())
-            {
-                prompt.Width = 400;
-                prompt.Height = 150;
-                prompt.Text = "Enter New Folder Name";
-                Label textLabel = new Label() { Left = 20, Top = 20, Text = "New Folder Name:" };
-                TextBox textBox = new TextBox() { Left = 20, Top = 50, Width = 340 };
-                Button confirmation = new Button() { Text = "Create Folder", Left = 280, Width = 80, Top = 80, DialogResult = DialogResult.OK };
-                prompt.Controls.Add(textLabel);
-                prompt.Controls.Add(textBox);
-                prompt.Controls.Add(confirmation);
-                prompt.AcceptButton = confirmation;
-                return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : string.Empty;
-            }
         }
 
         public string ReturnSoundFileNameFromListEntry(string listEntry)
@@ -253,6 +211,20 @@ namespace GT2EngineSoundEd
 
             dest_comboBox.Items.Clear();
             dest_comboBox.Items.AddRange(sourceItems.ToArray());
+        }
+
+        private void Resize_MainForm(object sender, EventArgs e)
+        {
+            executeTask_Button.Location = new System.Drawing.Point(this.Size.Width - 100, this.Size.Height - 80);
+            addTask_Button.Location = new System.Drawing.Point(this.Size.Width - 180, this.Size.Height - 80);
+            removeTask_Button.Location = new System.Drawing.Point(this.Size.Width - 280, this.Size.Height - 80);
+            errorIndicator_Label.Location = new System.Drawing.Point(20, this.Size.Height - 70);
+            tasksQueue_TextBox.Size = new System.Drawing.Size(this.Size.Width - 65, this.Size.Height - 220);
+            dest_comboBox.Size = new System.Drawing.Size(this.Size.Width - 65, 21);
+            source_comboBox.Size = new System.Drawing.Size(this.Size.Width - 65, 21);
+            dest_Label.Location = new System.Drawing.Point(this.Size.Width / 2, 68);
+            tasksQueue_Label.Location = new System.Drawing.Point(this.Size.Width / 2, 115);
+            source_Label.Location = new System.Drawing.Point(this.Size.Width / 2, 8);
         }
     }
 }
