@@ -45,6 +45,7 @@ namespace GT2EngineSoundEd
             // 
             // source_comboBox
             // 
+            this.source_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.source_comboBox.FormattingEnabled = true;
             this.source_comboBox.Items.AddRange(new object[] {
             "Select Engine Sound"});
@@ -55,6 +56,7 @@ namespace GT2EngineSoundEd
             // 
             // dest_comboBox
             // 
+            this.dest_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dest_comboBox.FormattingEnabled = true;
             this.dest_comboBox.Items.AddRange(new object[] {
             "Select Destination Car(s)"});
@@ -120,6 +122,7 @@ namespace GT2EngineSoundEd
             this.tasksQueue_TextBox.Location = new System.Drawing.Point(24, 131);
             this.tasksQueue_TextBox.Multiline = true;
             this.tasksQueue_TextBox.Name = "tasksQueue_TextBox";
+            this.tasksQueue_TextBox.ReadOnly = true;
             this.tasksQueue_TextBox.Size = new System.Drawing.Size(723, 204);
             this.tasksQueue_TextBox.TabIndex = 7;
             this.tasksQueue_TextBox.WordWrap = false;
